@@ -206,6 +206,7 @@ $(function() {
                         button.makeActive();
                     }
                     
+                    editor.addHistotyState();
                     editor.view.container.focus();
                 });
             }
@@ -364,12 +365,9 @@ $(function() {
         Editor.selection = window.getSelection();
     });
     
-    Editor.view.container.on('keyup', function(e) {
+    Editor.view.container.on('keydown', function(e) {
         var keycode = e.which;
-        
-        //Ctrl+Z
-        if (e.ctrlKey) {
-            console.log('ctrl key');
+         if (e.ctrlKey) {
             if (keycode == 90) {
                 e.preventDefault();
                 console.log('ctrl+z');
@@ -380,42 +378,45 @@ $(function() {
                 console.log('ctrl+r');
                 Editor.goForwardInHistory();
             }
-        } 
-        else {
-            //Font-format keys
-            if (e.altKey) {   
-                if (keycode == 66) {
-                    var button = Editor.getButtonByName('b');
-                    button.view.click();
-                }
-                else if (keycode == 73) {
-                    var button = Editor.getButtonByName('i');
-                    button.view.click();
-                }
-                else if (keycode == 83) {
-                    var button = Editor.getButtonByName('strike');
-                    button.view.click();
-                }
-                else if (keycode == 85) {
-                    var button = Editor.getButtonByName('u');
-                    button.view.click();
-                }
-                else if (keycode == 61) {
-                    var button = Editor.getButtonByName('increaseFontSize');
-                    button.view.click();
-                }
-                else if (keycode == 173) {
-                    var button = Editor.getButtonByName('decreaseFontSize');
-                    button.view.click();
-                }
-            }
+         }
+    });
+    
+    Editor.view.container.on('keyup', function(e) {
+        var keycode = e.which;
 
-            if (keycode >= 33 && keycode <= 40 || keycode == 8 || keycode == 46) { //arrows, Home, PgUp, PgDown, End, BackSpace, Delete
-                Editor.activateButtons();
-            }
-            
-            Editor.addHistotyState();
+         //Font-format keys
+         if (e.altKey) {   
+             if (keycode == 66) {
+                 var button = Editor.getButtonByName('b');
+                 button.view.click();
+             }
+             else if (keycode == 73) {
+                 var button = Editor.getButtonByName('i');
+                 button.view.click();
+             }
+             else if (keycode == 83) {
+                 var button = Editor.getButtonByName('strike');
+                 button.view.click();
+             }
+             else if (keycode == 85) {
+                 var button = Editor.getButtonByName('u');
+                 button.view.click();
+             }
+             else if (keycode == 61) {
+                 var button = Editor.getButtonByName('increaseFontSize');
+                 button.view.click();
+             }
+             else if (keycode == 173) {
+                 var button = Editor.getButtonByName('decreaseFontSize');
+                 button.view.click();
+             }
+         }
+        
+        if (keycode >= 33 && keycode <= 40 || keycode == 8 || keycode == 46) { //arrows, Home, PgUp, PgDown, End, BackSpace, Delete
+            Editor.activateButtons();
         }
+            
+        Editor.addHistotyState();
     });    
     
     Editor.view.container.on('dragenter', function() {
