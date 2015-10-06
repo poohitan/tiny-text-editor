@@ -52,6 +52,7 @@ $(function() {
         
         this.getButtonByName = function(name) {
             var items = editor.view.panel.items;
+            
             for (var i = 0; i < items.length; ++i) {
                 if (items[i].name == name) {
                     return items[i];
