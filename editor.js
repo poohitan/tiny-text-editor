@@ -207,6 +207,7 @@ $(function() {
                     }
                     
                     editor.addHistotyState();
+                    
                     editor.view.container.focus();
                 });
             }
