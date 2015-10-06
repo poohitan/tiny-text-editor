@@ -176,7 +176,9 @@ $(function() {
                     //other tags that have no synonyms (like <i> == <em>)
                     else {
                         var button = editor.getButtonByName(parentNodesNames[i]);
-                        button.makeActive();
+                        if (button) {
+                            button.makeActive();
+                        }
                     }
                 }
             }
