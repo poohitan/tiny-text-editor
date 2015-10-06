@@ -58,6 +58,8 @@ $(function() {
                     return items[i];
                 }
             }
+            
+            return false;
         }
         
         this.addHistotyState = function() {
