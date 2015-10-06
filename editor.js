@@ -151,47 +151,34 @@ $(function() {
             }
             
             if (editor.getContent()) {
-            var nodeThatCursorIsInside = editor.selection.getRangeAt(0).startContainer.parentNode;
-            var currentNode = nodeThatCursorIsInside;
-            var parentNodesNames = [];
-           // console.log(currentNode);
-          
-            while (currentNode.id !== Editor.view.container.attr('id')) {
-                parentNodesNames.push(currentNode.nodeName.toLowerCase());
-                currentNode = currentNode.parentNode;
-            }
-            
-            //looping through selected node parents tree
-            for (var i = 0; i < parentNodesNames.length; ++i) {
-                //looking for <b>, <strong> tags in tree... if found make 'Bold' button active
-                if (parentNodesNames[i] === 'b' || parentNodesNames[i] === 'strong') {
-                    for (var j = 0; j < items.length; ++j) {
-                        if (items[j].name == 'b') {
-                            items[j].makeActive();
-                            break;
-                        }
+                var nodeThatCursorIsInside = editor.selection.getRangeAt(0).startContainer.parentNode;
+                var currentNode = nodeThatCursorIsInside;
+                var parentNodesNames = [];
+               // console.log(currentNode);
+
+                while (currentNode.id !== Editor.view.container.attr('id')) {
+                    parentNodesNames.push(currentNode.nodeName.toLowerCase());
+                    currentNode = currentNode.parentNode;
+                }
+
+                //looping through selected node parents tree
+                for (var i = 0; i < parentNodesNames.length; ++i) {
+                    //looking for <b>, <strong> tags in tree... if found make 'Bold' button active
+                    if (parentNodesNames[i] === 'b' || parentNodesNames[i] === 'strong') {
+                        var button = editor.getButtonByName('b');
+                        button.makeActive();
+                    }
+                    //looking for <im>, <em> tags
+                    else if (parentNodesNames[i] === 'i' || parentNodesNames[i] === 'em') {
+                        var button = editor.getButtonByName('i');
+                        button.makeActive();
+                    }
+                    //other tags that have no synonyms (like <i> == <em>)
+                    else {
+                        var button = editor.getButtonByName(parentNodesNames[i]);
+                        button.makeActive();
                     }
                 }
-                //looking for <im>, <em> tags
-                else if (parentNodesNames[i] === 'i' || parentNodesNames[i] === 'em') {
-                    for (var j = 0; j < items.length; ++j) {
-                        if (items[j].name == 'i') {
-                            items[j].makeActive();
-                            break;
-                        }
-                    }
-                }
-                //other tags that have no synonyms (like <i> == <em>)
-                else {
-                    for (var j = 0; j < items.length; ++j) {
-                      //  console.log(items[j].name + " " + parentNodesNames[i]);
-                        if (items[j].name == parentNodesNames[i]) {   
-                            items[j].makeActive();
-                            break;
-                        }
-                    }
-                }
-            }
             }
         }
         
