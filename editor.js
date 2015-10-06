@@ -50,6 +50,15 @@ $(function() {
             return content;
         }
         
+        this.getButtonByName = function(name) {
+            var items = editor.view.panel.items;
+            for (var i = 0; i < items.length; ++i) {
+                if (items[i].name == name) {
+                    return items[i];
+                }
+            }
+        }
+        
         this.addHistotyState = function() {
             console.log('trying to add history state');
             var state = editor.view.container.html();
@@ -388,22 +397,28 @@ $(function() {
             //Font-format keys
             if (e.altKey) {   
                 if (keycode == 66) {
-                    Editor.view.panel.items['b'].view.click();
+                    var button = Editor.getButtonByName('b');
+                    button.view.click();
                 }
                 else if (keycode == 73) {
-                    Editor.view.panel.items['i'].view.click();
+                    var button = Editor.getButtonByName('i');
+                    button.view.click();
                 }
                 else if (keycode == 83) {
-                    Editor.view.panel.items['strike'].view.click();
+                    var button = Editor.getButtonByName('strike');
+                    button.view.click();
                 }
                 else if (keycode == 85) {
-                    Editor.view.panel.items['u'].view.click();
+                    var button = Editor.getButtonByName('u');
+                    button.view.click();
                 }
                 else if (keycode == 61) {
-                    Editor.view.panel.items['increaseFontSize'].view.click();
+                    var button = Editor.getButtonByName('increaseFontSize');
+                    button.view.click();
                 }
                 else if (keycode == 173) {
-                    Editor.view.panel.items['decreaseFontSize'].view.click();
+                    var button = Editor.getButtonByName('decreaseFontSize');
+                    button.view.click();
                 }
             }
 
